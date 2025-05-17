@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sách thành viên</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDwT7a7qdP9kKTAi12VWO3n3F4AM4aA==" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .member-list {
+            max-width: 700px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        .member-list:hover {
+            transform: translateY(-5px);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-weight: 700;
+            font-size: 2.2rem;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #007bff;
+            color: #fff;
+            padding: 15px;
+            margin: 8px 0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: background 0.3s ease, transform 0.2s ease;
+            font-size: 1.1rem;
+        }
+        li:nth-child(even) {
+            background: #28a745;
+        }
+        li:hover {
+            background: #0056b3;
+            transform: scale(1.02);
+        }
+        li:nth-child(even):hover {
+            background: #218838;
+        }
+        li i {
+            margin-right: 10px;
+            color: #fff;
+        }
+        @media (max-width: 576px) {
+            .member-list {
+                margin: 20px;
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            li {
+                font-size: 1rem;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="member-list">
+    <h1>Danh sách thành viên</h1>
+    <ul>
+        <li th:each="member : ${members}">
+            <i class="fas fa-user"></i>
+            <span th:text="${member}"></span>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
