@@ -12,7 +12,7 @@ import java.util.List;
 public class demo {
 
     private final List<Member> members = List.of(
-            new Member("Huỳnh Văn Nghĩa", 25, "Leader", "nghia@donga.edu"),
+            new Member("Huỳnh Văn Nghĩaa", 25, "Leader", "nghia@donga.edu"),
             new Member("Nguyễn Thị Minh Nguyệt", 22, "Developer", "nguyet@donga.edu"),
             new Member("Nguyễn Trung Kỳ", 23, "Designer", "ky@donga.edu")
     );
