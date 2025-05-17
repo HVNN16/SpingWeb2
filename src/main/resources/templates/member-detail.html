@@ -5,7 +5,15 @@
 </head>
 <body>
 <h1>Thông tin thành viên</h1>
-<p>Tên thành viên: <span th:text="${memberName}"></span></p>
+<ul>
+    <li th:each="member : ${members}">
+        <a th:href="@{'/members/' + ${member.name}}"
+           style="color: white; text-decoration: none; display: flex; align-items: center;">
+            <i class="fas fa-user"></i>
+            <span th:text="${member.name} + ' (' + ${member.role} + ')'"></span>
+        </a>
+    </li>
+</ul>
 <a href="/members">Quay lại danh sách</a>
 </body>
 </html>
