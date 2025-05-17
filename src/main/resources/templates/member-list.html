@@ -80,8 +80,11 @@
     <h1>Danh sách thành viên</h1>
     <ul>
         <li th:each="member : ${members}">
-            <i class="fas fa-user"></i>
-            <span th:text="${member}"></span>
+            <a th:href="@{'/members/' + ${member}}"
+               style="color: white; text-decoration: none; display: flex; align-items: center;">
+                <i class="fas fa-user"></i>
+                <span th:text="${member}" style="margin-left: 10px;"></span>
+            </a>
         </li>
     </ul>
 </div>
