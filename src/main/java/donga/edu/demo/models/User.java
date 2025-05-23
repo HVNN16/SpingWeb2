@@ -3,7 +3,7 @@ package donga.edu.demo.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "user1")
+@Table(name = "usertable")
 public class User {
 
     @Id
