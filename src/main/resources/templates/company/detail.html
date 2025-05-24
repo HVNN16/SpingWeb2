@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Chi tiết công ty</title></head>
 <body>
+<h1>Chi tiết công ty</h1>
+<p><strong>Tên:</strong> <span th:text="${company.name}"></span></p>
+<p><strong>Địa chỉ:</strong> <span th:text="${company.address}"></span></p>
 
+<h3>Danh sách người dùng:</h3>
+<ul>
+    <li th:each="user : ${company.users}" th:text="${user.name + ' - ' + user.email}"></li>
+</ul>
+
+<a th:href="@{/companies}">Quay lại danh sách</a>
 </body>
 </html>

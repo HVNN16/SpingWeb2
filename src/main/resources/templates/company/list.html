@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Danh sách công ty</title></head>
 <body>
-
+<h1>Danh sách công ty</h1>
+<a th:href="@{/companies/new}">Thêm mới</a>
+<table>
+    <tr>
+        <th>Tên</th><th>Địa chỉ</th><th>Hành động</th>
+    </tr>
+    <tr th:each="company : ${companies}">
+        <td th:text="${company.name}"></td>
+        <td th:text="${company.address}"></td>
+        <td>
+            <a th:href="@{'/companies/' + ${company.id}}">Chi tiết</a> |
+            <a th:href="@{'/companies/' + ${company.id} + '/edit'}">Sửa</a> |
+            <a th:href="@{'/companies/' + ${company.id} + '/delete'}">Xoá</a>
+        </td>
+    </tr>
+</table>
 </body>
 </html>

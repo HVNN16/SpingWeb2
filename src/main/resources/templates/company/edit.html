@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Thêm/Sửa công ty</title></head>
 <body>
-
+<h1 th:text="${company.id != null ? 'Sửa' : 'Thêm mới'} + ' công ty'"></h1>
+<form th:action="@{${company.id != null} ? '/companies/' + ${company.id} + '/update' : '/companies'}" method="post" th:object="${company}">
+    Tên: <input type="text" th:field="*{name}" /><br>
+    Địa chỉ: <input type="text" th:field="*{address}" /><br>
+    <button type="submit">Lưu</button>
+</form>
+<a th:href="@{/companies}">Quay lại</a>
 </body>
 </html>
