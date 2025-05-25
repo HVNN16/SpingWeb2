@@ -1,13 +1,55 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><title>Thêm/Sửa công ty</title></head>
+<head>
+    <title>Thêm/Sửa Công Ty</title>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 60px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-title {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #343a40;
+        }
+    </style>
+</head>
 <body>
-<h1 th:text="${company.id != null ? 'Sửa' : 'Thêm mới'} + ' công ty'"></h1>
-<form th:action="@{${company.id != null} ? '/companies/' + ${company.id} + '/update' : '/companies'}" method="post" th:object="${company}">
-    Tên: <input type="text" th:field="*{name}" /><br>
-    Địa chỉ: <input type="text" th:field="*{address}" /><br>
-    <button type="submit">Lưu</button>
-</form>
-<a th:href="@{/companies}">Quay lại</a>
+<div class="container">
+    <div class="form-container">
+        <h2 class="form-title" th:text="${company.id != null ? 'Sửa' : 'Thêm mới'} + ' Công Ty'"></h2>
+
+        <form th:action="@{${company.id != null} ? '/companies/' + ${company.id} + '/update' : '/companies'}"
+              method="post" th:object="${company}">
+
+            <div class="mb-3">
+                <label class="form-label">Tên công ty</label>
+                <input type="text" th:field="*{name}" class="form-control" placeholder="Nhập tên công ty" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Địa chỉ</label>
+                <input type="text" th:field="*{address}" class="form-control" placeholder="Nhập địa chỉ công ty" required>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-success btn-lg">Lưu Công Ty</button>
+                <a th:href="@{/companies}" class="btn btn-secondary">Quay lại danh sách</a>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>
