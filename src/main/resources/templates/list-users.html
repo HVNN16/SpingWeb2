@@ -50,13 +50,17 @@
                 <th>ID</th>
                 <th>Tên</th>
                 <th>Email</th>
+                <th>Công ty</th> <!-- Thêm cột Công ty -->
             </tr>
             </thead>
             <tbody>
             <tr th:each="user : ${users}">
                 <td th:text="${user.id}"></td>
-                <td><a th:href="@{/users/{id}(id=${user.id})}" th:text="${user.name}" class="text-decoration-none"></a></td>
+                <td>
+                    <a th:href="@{/users/{id}(id=${user.id})}" th:text="${user.name}" class="text-decoration-none"></a>
+                </td>
                 <td th:text="${user.email}"></td>
+                <td th:text="${user.company != null ? user.company.name : 'Không có'}"></td> <!-- Hiển thị tên công ty -->
             </tr>
             </tbody>
         </table>

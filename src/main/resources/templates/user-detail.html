@@ -1,3 +1,4 @@
+<!-- user-detail.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -35,6 +36,7 @@
       <p><strong>ID:</strong> <span th:text="${user.id}"></span></p>
       <p><strong>Tên:</strong> <span th:text="${user.name}"></span></p>
       <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+      <p><strong>Công ty:</strong> <span th:text="${user.company.name}"></span></p>
     </div>
     <a href="/users" class="btn btn-primary"><i class="fas fa-arrow-left me-1"></i> Quay lại</a>
   </div>
