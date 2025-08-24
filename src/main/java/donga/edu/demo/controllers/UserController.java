@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/users")
 public class UserController {
 
     @Autowired
@@ -22,32 +21,41 @@ public class UserController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    // Danh sách user (Admin và User đều xem được)
-    @GetMapping
-    public String listUsers(Model model) {
-        model.addAttribute("users", userRepository.findAll());
-        return "user/list-users";
-    }
-
-    // Form tạo mới user (Chỉ Admin)
-    @GetMapping("/new")
+    // Form tạo user mới
+    @GetMapping("/users/new")
     public String showCreateForm(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("companies", companyRepository.findAll());
         return "user/create-user";
     }
 
-    // Lưu user mới (Chỉ Admin)
-    @PostMapping
+    // Lưu user mới
+    @PostMapping("/users")
     public String saveUser(@ModelAttribute User user) {
-        // Mã hóa password trước khi lưu
+        // mã hóa password trước khi lưu
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return "redirect:/users";
     }
 
-    // Form sửa user (Chỉ Admin)
-    @GetMapping("/{id}/edit")
+    // Danh sách user
+    @GetMapping("/users")
+    public String listUsers(Model model) {
+        model.addAttribute("users", userRepository.findAll());
+        return "user/list-users";
+    }
+
+    // Chi tiết user
+    @GetMapping("/users/{id}")
+    public String showUserDetail(@PathVariable Long id, Model model) {
+        User user = userRepository.findById(id).orElse(null);
+        if (user == null) return "redirect:/users";
+        model.addAttribute("user", user);
+        return "user/user-detail";
+    }
+
+    // Form edit user
+    @GetMapping("/users/{id}/edit")
     public String showEditForm(@PathVariable Long id, Model model) {
         User user = userRepository.findById(id).orElse(null);
         if (user == null) return "redirect:/users";
@@ -56,36 +64,28 @@ public class UserController {
         return "user/edit-user";
     }
 
-    // Cập nhật user (Chỉ Admin)
-    @PostMapping("/{id}/update")
+    // Update user
+    @PostMapping("/users/{id}/update")
     public String updateUser(@PathVariable Long id, @ModelAttribute User user) {
-        User existing = userRepository.findById(id).orElse(null);
-        if (existing != null) {
-            existing.setName(user.getName());
-            existing.setEmail(user.getEmail());
-            existing.setRole(user.getRole());
-            existing.setCompany(user.getCompany());
-            if (!user.getPassword().isEmpty()) {
-                existing.setPassword(passwordEncoder.encode(user.getPassword()));
-            }
-            userRepository.save(existing);
+        User existingUser = userRepository.findById(id).orElse(null);
+        if (existingUser == null) return "redirect:/users";
+
+        existingUser.setName(user.getName());
+        existingUser.setEmail(user.getEmail());
+        if (!user.getPassword().isEmpty()) {
+            existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
         }
+        existingUser.setRole(user.getRole());
+        existingUser.setCompany(user.getCompany());
+
+        userRepository.save(existingUser);
         return "redirect:/users";
     }
 
-    // Xóa user (Chỉ Admin)
-    @GetMapping("/{id}/delete")
+    // Xóa user
+    @GetMapping("/users/{id}/delete")
     public String deleteUser(@PathVariable Long id) {
         userRepository.deleteById(id);
         return "redirect:/users";
-    }
-
-    // Xem chi tiết user (Admin và User đều xem được)
-    @GetMapping("/{id}")
-    public String showUserDetail(@PathVariable Long id, Model model) {
-        User user = userRepository.findById(id).orElse(null);
-        if (user == null) return "redirect:/users";
-        model.addAttribute("user", user);
-        return "user/user-detail";
     }
 }

@@ -3,7 +3,7 @@ package donga.edu.demo.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "usertable")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -12,27 +12,25 @@ public class User {
 
     private String name;
     private String email;
+    private String password; // lưu mật khẩu đã mã hóa
+    private String role;     // ROLE_USER hoặc ROLE_ADMIN
 
-    private String username;  // thêm
-    private String password;  // thêm
-    private String role;      // thêm (nếu muốn phân quyền)
-
-    // Liên kết đến Company (nhiều người dùng thuộc về 1 công ty)
     @ManyToOne
-    @JoinColumn(name = "company_id") // tên cột khóa ngoại trong bảng usertable
+    @JoinColumn(name = "company_id")
     private Company company;
 
+    // Constructors
     public User() {}
 
-    public User(String name, String email, String username, String password, String role) {
+    public User(String name, String email, String password, String role, Company company) {
         this.name = name;
         this.email = email;
-        this.username = username;
         this.password = password;
         this.role = role;
+        this.company = company;
     }
 
-    // Getter và Setter
+    // Getters & Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -41,9 +39,6 @@ public class User {
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
-
-    public String getUsername() { return username; }
-    public void setUsername(String username) { this.username = username; }
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
