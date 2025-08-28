@@ -215,6 +215,11 @@
                     <td th:text="${user.role}"></td>
                     <td th:text="${user.company != null ? user.company.name : 'Không có'}"></td>
                     <td class="px-4 py-2 flex space-x-2">
+                        <a th:href="@{'/users/' + ${user.id} + '/view'}"
+                           sec:authorize="hasRole('ADMIN')"
+                           class="text-green-600 hover:text-green-800" title="Xem">
+                            <i class="fas fa-eye"></i>
+                        </a>
                         <a th:href="@{'/users/' + ${user.id} + '/edit'}"
                            sec:authorize="hasRole('ADMIN')"
                            class="text-blue-600 hover:text-blue-800" title="Sửa">
