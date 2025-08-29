@@ -147,7 +147,6 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">MyApp</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -215,6 +214,11 @@
                     <td th:text="${user.role}"></td>
                     <td th:text="${user.company != null ? user.company.name : 'Không có'}"></td>
                     <td class="px-4 py-2 flex space-x-2">
+                        <a th:href="@{'/users/' + ${user.id} + '/{id}'}"
+                           sec:authorize="hasRole('ADMIN')"
+                           class="text-green-600 hover:text-green-800" title="Xem">
+                            <i class="fas fa-eye"></i>
+                        </a>
                         <a th:href="@{'/users/' + ${user.id} + '/edit'}"
                            sec:authorize="hasRole('ADMIN')"
                            class="text-blue-600 hover:text-blue-800" title="Sửa">
