@@ -38,6 +38,7 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 15px;
+            margin-top: 20px;
         }
         .card {
             border-radius: 15px;
@@ -188,6 +189,9 @@
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h2>Danh sách Người Dùng</h2>
+            <a th:href="@{/users/new}" sec:authorize="hasRole('ADMIN')" class="btn btn-add">
+                <i class="fas fa-plus me-1"></i>Thêm
+            </a>
         </div>
         <div class="card-body p-0">
             <table class="table table-bordered">

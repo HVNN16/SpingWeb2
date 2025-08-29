@@ -188,7 +188,7 @@
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h2>Danh sách Công ty</h2>
-            <a th:href="@{/companies/add}" sec:authorize="hasRole('ADMIN')" class="btn btn-add">
+            <a th:href="@{/companies/new}" sec:authorize="hasRole('ADMIN')" class="btn btn-add">
                 <i class="fas fa-plus me-1"></i>Thêm Công ty
             </a>
         </div>
@@ -208,10 +208,6 @@
                         <span class="badge bg-primary-subtle text-primary-emphasis" th:text="${company.address}"></span>
                     </td>
                     <td class="px-4 py-2 flex space-x-2">
-                        <a th:href="@{'/companies/' + ${company.id} + '/view'}"
-                           class="text-green-600 hover:text-green-800" title="Xem">
-                            <i class="fas fa-eye"></i>
-                        </a>
                         <a th:href="@{'/companies/' + ${company.id} + '/edit'}"
                            sec:authorize="hasRole('ADMIN')"
                            class="text-blue-600 hover:text-blue-800" title="Sửa">
