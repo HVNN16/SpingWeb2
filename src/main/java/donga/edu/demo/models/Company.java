@@ -2,6 +2,11 @@ package donga.edu.demo.models;
 
 import jakarta.persistence.*;
 import java.util.List;
+//import com.fasterxml.jackson.annotation.JsonManagedReference;
+//import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 
 @Entity
 @Table(name = "companies")
@@ -16,6 +21,8 @@ public class Company {
     private String address;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JsonBackReference
+    @JsonIgnore
     private List<User> users;
 
     // Constructors
