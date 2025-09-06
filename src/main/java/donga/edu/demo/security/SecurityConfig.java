@@ -34,8 +34,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .headers(headers -> headers.frameOptions().disable()) // cho H2 console
                 .authorizeHttpRequests(auth -> auth
-                        // Cho phép REST API + H2 console + health check (tiện test Postman)
-                        .requestMatchers("/api/**", "/h2-console/**", "/actuator/**").permitAll()
+                        .requestMatchers("/api/**", "/h2-console/**").permitAll()
                         // H2 console
                         .requestMatchers("/h2-console/**").permitAll()
                         // Trang login, css/js/public
