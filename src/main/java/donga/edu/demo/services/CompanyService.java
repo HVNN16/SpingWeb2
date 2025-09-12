@@ -23,11 +23,9 @@ public class CompanyService {
         return companyRepository.findAll(pageable);
     }
 
-
     public Company getById(Long id) {
         return companyRepository.findById(id).orElseThrow();
     }
-
 
     public Company update(Long id, Company companyData) {
         Company company = getById(id);
