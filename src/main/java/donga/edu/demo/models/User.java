@@ -1,6 +1,10 @@
 package donga.edu.demo.models;
 
 import jakarta.persistence.*;
+//import com.fasterxml.jackson.annotation.JsonManagedReference;
+//import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "users")
@@ -16,6 +20,9 @@ public class User {
     private String role;     // ROLE_USER hoặc ROLE_ADMIN
 
     @ManyToOne
+//    @JsonManagedReference
+//    @JsonIgnore
+
     @JoinColumn(name = "company_id")
     private Company company;
 
