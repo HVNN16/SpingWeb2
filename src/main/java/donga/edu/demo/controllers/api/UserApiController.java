@@ -6,13 +6,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class UserApiController {
-
     private final UserService userService;
 
     @PostMapping
@@ -40,5 +40,13 @@ public class UserApiController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
         userService.delete(id);
+    }
+
+    // 🔑 Endpoint /api/users/me (lấy từ token)
+    @GetMapping("/me")
+    public User me(Authentication authentication) {
+        String email = authentication.getName();
+        return userService.getByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
     }
 }

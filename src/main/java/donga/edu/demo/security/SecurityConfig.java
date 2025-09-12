@@ -34,22 +34,30 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .headers(headers -> headers.frameOptions().disable()) // cho H2 console
                 .authorizeHttpRequests(auth -> auth
-                        // Cho phép REST API + H2 console + health check (tiện test Postman)
-                        .requestMatchers("/api/**", "/h2-console/**", "/actuator/**").permitAll()
-                        // H2 console
-                        .requestMatchers("/h2-console/**").permitAll()
-                        // Trang login, css/js/public
-                        .requestMatchers("/login", "/register", "/css/**", "/js/**").permitAll()
+                        // ====== API SECURITY RULES ======
+                        // /api/users/** chỉ ADMIN
+                        .requestMatchers("/api/users/**").hasRole("ADMIN")
+                        // /api/me cho tất cả user đăng nhập
+                        .requestMatchers("/api/me").authenticated()
+                        // Cho phép public API login, register
+                        .requestMatchers("/api/auth/**").permitAll()
 
-                        // Chỉ admin được thêm/sửa/xóa công ty và user
+                        // ====== H2 & Actuator ======
+                        .requestMatchers("/h2-console/**", "/actuator/**").permitAll()
+
+                        // ====== Trang web MVC ======
+                        // Chỉ admin được thêm/sửa/xóa công ty và user (web UI)
                         .requestMatchers("/companies/new", "/companies/*/edit", "/companies/*/delete").hasRole("ADMIN")
                         .requestMatchers("/users/new", "/users/*/edit", "/users/*/delete").hasRole("ADMIN")
 
-                        // Tất cả user/admin đều có thể xem danh sách và chi tiết
+                        // User & Admin đều có thể xem
                         .requestMatchers("/companies", "/companies/*").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/users", "/users/*").hasAnyRole("ADMIN", "USER")
 
-                        // Mặc định cần login
+                        // Trang login, css/js/public
+                        .requestMatchers("/login", "/register", "/css/**", "/js/**").permitAll()
+
+                        // Mặc định: cần login
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
