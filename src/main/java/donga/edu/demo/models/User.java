@@ -1,32 +1,28 @@
 package donga.edu.demo.models;
 
 import jakarta.persistence.*;
-//import com.fasterxml.jackson.annotation.JsonManagedReference;
-//import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 
 @Entity
 @Table(name = "users")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
+
     private String email;
-    private String password; // lưu mật khẩu đã mã hóa
-    private String role;     // ROLE_USER hoặc ROLE_ADMIN
+
+    @JsonIgnore   // Ẩn mật khẩu khi trả JSON
+    private String password;
+
+    private String role; // ROLE_USER hoặc ROLE_ADMIN
 
     @ManyToOne
-//    @JsonManagedReference
-//    @JsonIgnore
-
     @JoinColumn(name = "company_id")
     private Company company;
 
-    // Constructors
     public User() {}
 
     public User(String name, String email, String password, String role, Company company) {
