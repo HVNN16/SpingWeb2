@@ -32,8 +32,11 @@ public class UserController {
     // Lưu user mới
     @PostMapping("/users")
     public String saveUser(@ModelAttribute User user) {
-        // mã hóa password trước khi lưu
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setEnabled(true); // bật enable để đăng nhập được
+        if (user.getRole() == null || user.getRole().isBlank()) {
+            user.setRole("ROLE_USER"); // mặc định USER nếu chưa chọn
+        }
         userRepository.save(user);
         return "redirect:/users";
     }
@@ -72,11 +75,12 @@ public class UserController {
 
         existingUser.setName(user.getName());
         existingUser.setEmail(user.getEmail());
-        if (!user.getPassword().isEmpty()) {
+        if (user.getPassword() != null && !user.getPassword().isBlank()) {
             existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
         }
         existingUser.setRole(user.getRole());
         existingUser.setCompany(user.getCompany());
+        existingUser.setEnabled(true); // luôn bật enable
 
         userRepository.save(existingUser);
         return "redirect:/users";

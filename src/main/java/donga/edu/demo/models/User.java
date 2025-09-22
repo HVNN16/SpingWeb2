@@ -12,12 +12,16 @@ public class User {
 
     private String name;
 
+    @Column(unique = true, nullable = false)
     private String email;
 
     @JsonIgnore   // Ẩn mật khẩu khi trả JSON
     private String password;
 
     private String role; // ROLE_USER hoặc ROLE_ADMIN
+
+    @Column(nullable = false)
+    private boolean enabled = true;   // ✅ thêm cột enabled, mặc định true
 
     @ManyToOne
     @JoinColumn(name = "company_id")
@@ -31,6 +35,7 @@ public class User {
         this.password = password;
         this.role = role;
         this.company = company;
+        this.enabled = true; // mặc định bật
     }
 
     // Getters & Setters
@@ -48,6 +53,9 @@ public class User {
 
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
+
+    public boolean isEnabled() { return enabled; }   // ✅ thêm getter
+    public void setEnabled(boolean enabled) { this.enabled = enabled; } // ✅ thêm setter
 
     public Company getCompany() { return company; }
     public void setCompany(Company company) { this.company = company; }

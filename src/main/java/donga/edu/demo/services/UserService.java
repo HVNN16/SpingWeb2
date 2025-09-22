@@ -28,9 +28,19 @@ public class UserService {
             user.setCompany(null);
         }
 
+        // ✅ luôn bật enable để user đăng nhập được
+        user.setEnabled(true);
+
+        // ✅ nếu chưa có role thì mặc định USER
+        if (user.getRole() == null || user.getRole().isBlank()) {
+            user.setRole("ROLE_USER");
+        }
+
+        // ✅ luôn encode password khi tạo
         if (user.getPassword() != null && !user.getPassword().isBlank()) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
+
         return userRepository.save(user);
     }
 
@@ -52,6 +62,7 @@ public class UserService {
     // Update
     public User update(Long id, User userData) {
         User u = getById(id);
+
         if (userData.getName() != null) u.setName(userData.getName());
         if (userData.getEmail() != null) u.setEmail(userData.getEmail());
         if (userData.getRole() != null) u.setRole(userData.getRole());
@@ -64,6 +75,9 @@ public class UserService {
             Company c = companyRepository.findById(userData.getCompany().getId()).orElseThrow();
             u.setCompany(c);
         }
+
+        // ✅ đảm bảo luôn enable
+        u.setEnabled(true);
 
         return userRepository.save(u);
     }
