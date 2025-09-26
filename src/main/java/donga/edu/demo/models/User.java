@@ -1,5 +1,6 @@
 package donga.edu.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -15,7 +16,7 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
 
-    @JsonIgnore   // Ẩn mật khẩu khi trả JSON
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)  // Ẩn mật khẩu khi trả JSON
     private String password;
 
     private String role; // ROLE_USER hoặc ROLE_ADMIN
