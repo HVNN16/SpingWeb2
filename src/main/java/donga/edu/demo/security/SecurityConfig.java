@@ -291,17 +291,9 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration c = new CorsConfiguration();
         c.setAllowCredentials(true);
-
-        // 👇 chỉ định FE
         c.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:5174"));
-
-        // 👇 cho tất cả method
         c.setAllowedMethods(List.of("GET","POST","PUT","DELETE","PATCH","OPTIONS"));
-
-        // 👇 cho tất cả header
         c.setAllowedHeaders(List.of("*"));
-
-        // 👇 nếu cần FE đọc token trong response
         c.setExposedHeaders(List.of("Authorization"));
 
         UrlBasedCorsConfigurationSource s = new UrlBasedCorsConfigurationSource();

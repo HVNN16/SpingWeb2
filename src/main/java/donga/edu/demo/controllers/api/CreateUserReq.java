@@ -1,4 +1,4 @@
-package donga.edu.demo.controllers.api.dto;
+package donga.edu.demo.controllers.api;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
